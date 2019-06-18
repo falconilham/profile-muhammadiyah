@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, ActivityIndicator} from 'react-native';
-
+import { TouchableOpacity, StyleSheet, Text, View, Button, ActivityIndicator} from 'react-native';
+import {WebView} from 'react-native-webview';
 export default class Home extends Component {
   constructor() {
     super();
@@ -12,14 +12,7 @@ export default class Home extends Component {
   }
 
   componentDidMount(){
-    let data= fetch('https://id.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=Muhammadiyah').then((resp)=> {
-    resp.json().then((res) =>{
-      this.setState({
-        load: true,
-        data: res.query.pages[7018].title
-      })
-     })
-    })
+    
   }
   render() {
     return (
@@ -27,51 +20,72 @@ export default class Home extends Component {
         <View style={styles.header}>
             {this.state.active === "home" ? (
               <View style={styles.active}>
-                <Button onPress={() => this.setState({active: "home"})} color="transparent" title="Home" />
+                <TouchableOpacity onPress={() => this.setState({active: "home"})} color="transparent" title="Home" >
+                  <View style={{paddingVertical: 5}}>
+                    <Text style={{color: "white"}}>Home</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
               ):(
                 <View style={styles.navigation}>
-                  <Button onPress={() => this.setState({active: "home"})} color="transparent" title="Home" />
+                  <TouchableOpacity onPress={() => this.setState({active: "home"})} color="transparent" title="Home" >
+                    <View style={{paddingVertical: 5}}>
+                      <Text style={{color: "white"}}>Home</Text>
+                    </View>
+                  </TouchableOpacity>
                 </View>
               )
             }
             {this.state.active === "tokoh" ? (
               <View style={styles.active}>
-                <Button onPress={() => this.setState({active: "tokoh"})} color="transparent" title="Tokoh" />
+                <TouchableOpacity onPress={() => this.setState({active: "tokoh"})} color="transparent" title="Tokoh">
+                  <View style={{paddingVertical: 5}}>
+                    <Text style={{color: "white"}}>Tokoh</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
             ):(
               <View style={styles.navigation}>
-                <Button onPress={() => this.setState({active: "tokoh"})} color="transparent" title="Tokoh" />
+                <TouchableOpacity onPress={() => this.setState({active: "tokoh"})} color="transparent" title="Tokoh">
+                  <View style={{paddingVertical: 5}}>
+                    <Text style={{color: "white"}}>Tokoh</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
             )}
             {this.state.active === "sejarah" ? (
               <View style={styles.active}>
-                <Button onPress={() => this.setState({active: "sejarah"})} color="transparent" title="Sejarah" />
+                <TouchableOpacity onPress={() => this.setState({active: "sejarah"})} color="transparent" title="Sejarah">
+                  <View style={{paddingVertical: 5}}>
+                    <Text style={{color: "white"}}>Sejarah & Perkembangan</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
             ):(
               <View style={styles.navigation}>
-                <Button onPress={() => this.setState({active: "sejarah"})} color="transparent" title="Sejarah" />
-              </View>
-            )}
-            {this.state.active === "perkembangan" ? (
-              <View style={styles.active}>
-                <Button onPress={() => this.setState({active: "perkembangan"})} color="transparent" title="Perkembangan" />
-              </View>
-            ):(
-              <View style={styles.navigation}>
-                <Button onPress={() => this.setState({active: "perkembangan"})} color="transparent" title="Perkembangan" />
+                <TouchableOpacity onPress={() => this.setState({active: "sejarah"})} color="transparent" title="Sejarah">
+                  <View style={{paddingVertical: 5}}>
+                    <Text style={{color: "white"}}>Sejarah & Perkembangan</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
             )}
           </View>
-        {this.state.load === false ? (
+        {this.state.active === "home" ? (
+          <View style={{top : 0,width: "100%", height: 530}}>
+            <WebView
+                source={{html: "<p style='font-size: 35px;text-align: justify;text-indent: 50px;'>Muhammadiyah  adalah  sebuah  organisasi  Islam  yang besar  di  Indonesia.  Nama  organisasi  ini  diambil  dari  nama Nabi Muhammad  SAW.  sehingga  Muhammadiyah  juga  dapat dikenal   sebagai   orang-orang   yang   menjadi   pengikut   Nabi Muhammad   SAW.   Latar   belakang   KH   Ahmad   Dahlan memilih  nama  Muhammadiyah    yang  pada  masa  itu  sangat asing bagi telinga masyarakat umum adalah untuk memancing rasa  ingin  tahu dari  masyarakat,  sehingga  ada  celah  untuk memberikan penjelasan dan keterangan seluas-luasnya tentang agama  Islam  sebagaimana  yang  telah  diajarkan  Rasulullah SAW</p>" }}
+            />
+          </View>
+        ):this.state.active === "tokoh" ? (
           <View>
-            <ActivityIndicator size="large" />
+            <Text>tokoh</Text>
           </View>
         ):(
           <View>
-            <Text>{this.state.data}</Text>
+            <Text>sejarah</Text>
           </View>
-          )} 
+        )}
       </View>
     );
   }
@@ -80,15 +94,15 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    flexDirection: "row"
   },
   active:{
     borderBottomWidth: 2,
     borderBottomColor: "white",
   },
   header:{
+    flex: 2,
     display: "flex",
     flexDirection: 'row',
     paddingVertical: 3 ,
@@ -100,4 +114,7 @@ const styles = StyleSheet.create({
     backgroundColor: "blue",
     color: "white"
   },
+  color:{
+    color: "white"
+  }
 });
