@@ -19,11 +19,11 @@ export default class Profile extends Component {
         return (
                 <ScrollView>
                     <View style={styles.container}>
-                    <Text style={{textAlign: "center"}}>{this.state.name}</Text>
+                    <Text style={{textAlign: "center", color: "black"}}>{this.state.name}</Text>
                     <View style={{flex: 2,alignItems: "center", marginHorizontal: 10}}>
                         <Image style={styles.imageThumbnail} source={this.state.image} {...this.props} />
                     </View>
-                    <Text style={{alignItems: "center", textAlign: "justify"}}>{this.state.deskripsi}</Text>
+                    <Text style={{alignItems: "center", textAlign: "justify", color: "black"}}>{this.state.deskripsi}</Text>
                     </View>
                 </ScrollView>
         )
